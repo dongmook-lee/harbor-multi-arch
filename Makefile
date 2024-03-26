@@ -9,4 +9,4 @@ dep:
 
 patch:
 	echo "version = $(VERSION)"
-	sh -c "git clone --branch $(VERSION) https://github.com/goharbor/harbor.git"
+	git clone --branch $(VERSION) https://github.com/goharbor/harbor.git"
