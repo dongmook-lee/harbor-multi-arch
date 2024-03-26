@@ -65,9 +65,11 @@ jobs:
       - name: Check if component is db
         if: ${{ (matrix.component == 'db') }}
         run: |
+          cat ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
+          echo "========"
           bash ./scripts/convert.sh ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
           cat ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
-          
+
       - name: Build base image
         uses: docker/build-push-action@v4
         with:
