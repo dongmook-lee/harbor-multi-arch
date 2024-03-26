@@ -58,7 +58,7 @@ jobs:
       - name: Build base image
         uses: docker/build-push-action@v4
         with:
-          context: ./harbor
+          context: .
           file: ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
           platforms: linux/amd64,linux/arm64
           labels: |
