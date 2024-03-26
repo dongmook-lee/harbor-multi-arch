@@ -58,14 +58,14 @@ jobs:
       - name: Build base image
         uses: docker/build-push-action@v4
         with:
-          context: .
+          context: ./harbor
           file: ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
           platforms: linux/amd64,linux/arm64
-          labels: |
+          {# labels: |
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
-            org.opencontainers.image.revision=${{ env.tag }}
+            org.opencontainers.image.revision=${{ env.tag }} #}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/${{ github.repository }}/harbor-${{ matrix.component }}-base:${{ env.tag }}
+          tags: ghcr.io/dongmook-lee/harbor-${{ matrix.component }}-base:${{ env.tag }}
 
   docker-image:
     needs:
