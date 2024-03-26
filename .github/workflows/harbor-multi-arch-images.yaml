@@ -62,9 +62,9 @@ jobs:
       #     a: ${{ env.tag }}
       #     b: v2.9.0
 
-      - name: Check if component is db
+      # - name: Check if component is db
         # if: ${{ (matrix.component == 'db') && (steps.compare.outputs.result == 'less') }}
-        run: bash ./scripts/convert.sh ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
+        # run: bash ./scripts/convert.sh ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
 
       - name: Build base image
         uses: docker/build-push-action@v4
