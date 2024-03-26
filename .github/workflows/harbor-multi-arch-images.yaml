@@ -65,7 +65,7 @@ jobs:
           #   org.opencontainers.image.source=https://github.com/${{ github.repository }}
           #   org.opencontainers.image.revision=${{ env.tag }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/dongmook-lee/harbor-${{ matrix.component }}-base:${{ env.tag }}
+          tags: ghcr.io/dongmook-lee/harbor-${{ matrix.component }}-base:v2.7.4
 
   docker-image:
     needs:
