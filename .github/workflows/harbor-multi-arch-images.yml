@@ -1,6 +1,11 @@
 name: Docker publish
 
 on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (optional)'
+        required: false
   push:
     branches:
       - 'main'
