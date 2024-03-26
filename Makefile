@@ -8,4 +8,5 @@ dep:
 	git submodule foreach -q --recursive 'git reset --hard && git checkout ${VERSION}'
 
 patch:
-	git clone --branch $(VERSION) https://github.com/goharbor/harbor.git
+	echo "version = $(VERSION)"
+	sh -c "git clone --branch $(VERSION) https://github.com/goharbor/harbor.git"
