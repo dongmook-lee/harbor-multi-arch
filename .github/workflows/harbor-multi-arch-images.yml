@@ -14,6 +14,7 @@ jobs:
   docker-base-image:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         component:
           - trivy-adapter
