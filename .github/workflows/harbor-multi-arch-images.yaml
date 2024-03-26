@@ -65,8 +65,6 @@ jobs:
       - name: Check if component is db
         if: ${{ (matrix.component == 'db') }}
         run: |
-          cat ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
-          echo "========"
           bash ./scripts/convert.sh ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
           cat ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
 
@@ -80,7 +78,7 @@ jobs:
           #   org.opencontainers.image.source=https://github.com/${{ github.repository }}
           #   org.opencontainers.image.revision=${{ env.tag }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: minregi.k3.acornsoft.io/test/${{ github.repository }}/harbor-${{ matrix.component }}-base:${{ env.tag }}
+          tags: minregi.k3.acornsoft.io/test/harbor-${{ matrix.component }}-base:${{ env.tag }}
 
   docker-image:
     needs:
@@ -134,6 +132,12 @@ jobs:
 
       - id: prepare
         run: echo "tag=$(cat ./version)" >> $GITHUB_ENV
+
+      - name: Check if component is db
+        if: ${{ (matrix.component == 'db') }}
+        run: |
+          bash ./scripts/convert.sh ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
+          cat ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
 
       - name: Build & Publish images
         env:
