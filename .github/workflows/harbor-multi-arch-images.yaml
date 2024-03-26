@@ -54,6 +54,17 @@ jobs:
 
       - id: prepare
         run: echo "tag=$(cat ./version)"  >> $GITHUB_ENV
+      
+      - name: Compare versions
+        uses: EndBug/semver-action@v1
+        id: compare
+        with:
+          a: ${{ env.tag }}
+          b: v2.9.0
+
+      - name: Check if component is db
+        if: ${{ (matrix.component == 'db') && (steps.compare.outputs.result == 'less') }}
+        run: ./scripts/convert.sh ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
 
       - name: Build base image
         uses: docker/build-push-action@v4
@@ -113,18 +124,18 @@ jobs:
 
       - uses: docker/login-action@v2
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: minregi.k3.acornsoft.io
+          username: admin
+          password: Pass0000@
 
       - id: prepare
         run: echo "tag=$(cat ./version)" >> $GITHUB_ENV
 
       - name: Build & Publish images
         env:
-          IMAGENAMESPACE: ghcr.io/${{ github.repository }}
-          BASEIMAGENAMESPACE: ghcr.io/${{ github.repository }}
-          IMAGELABELS: org.opencontainers.image.source=https://github.com/${{ github.repository }}
+          IMAGENAMESPACE: minregi.k3.acornsoft.io/${{ github.repository }}
+          BASEIMAGENAMESPACE: minregi.k3.acornsoft.io/${{ github.repository }}
+          IMAGELABELS: org.opencontainers.image.source=https://minregi.k3.acornsoft.io/${{ github.repository }}
           MULTIARCH: true
           TRIVYFLAG: true
           CHARTFLAG: true
