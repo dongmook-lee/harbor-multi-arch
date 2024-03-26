@@ -44,28 +44,28 @@ jobs:
         with:
           driver: docker-container
           driver-opts: network=host
-      - uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
 
       - run: make patch
 
       - id: prepare
         run: echo "tag=$(cat ./version)"  >> $GITHUB_ENV
 
+      - uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build base image
         uses: docker/build-push-action@v4
         with:
           context: ./harbor
           file: ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
           platforms: linux/amd64,linux/arm64
-          # labels: |
-          #   org.opencontainers.image.source=https://github.com/${{ github.repository }}
-          #   org.opencontainers.image.revision=${{ env.tag }}
+          labels: |
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.revision=${{ env.tag }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/dongmook-lee/harbor-${{ matrix.component }}-base:v2.7.4
+          tags: ghcr.io/${{ github.repository }}/harbor-${{ matrix.component }}-base:${{ env.tag }}
 
   docker-image:
     needs:
