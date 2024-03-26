@@ -137,9 +137,9 @@ jobs:
 
       - name: Build & Publish images
         env:
-          IMAGENAMESPACE: minregi.k3.acornsoft.io/${{ github.repository }}
-          BASEIMAGENAMESPACE: minregi.k3.acornsoft.io/${{ github.repository }}
-          IMAGELABELS: org.opencontainers.image.source=https://minregi.k3.acornsoft.io/${{ github.repository }}
+          IMAGENAMESPACE: minregi.k3.acornsoft.io/test
+          BASEIMAGENAMESPACE: minregi.k3.acornsoft.io/test
+          IMAGELABELS: org.opencontainers.image.source=https://minregi.k3.acornsoft.io/test
           MULTIARCH: true
           TRIVYFLAG: true
           CHARTFLAG: true
