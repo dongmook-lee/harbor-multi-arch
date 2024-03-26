@@ -61,11 +61,11 @@ jobs:
           context: ./harbor
           file: ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
           platforms: linux/amd64,linux/arm64
-          labels: |
-            org.opencontainers.image.source=https://github.com/${{ github.repository }}
-            org.opencontainers.image.revision=${{ env.tag }}
+          # labels: |
+          #   org.opencontainers.image.source=https://github.com/${{ github.repository }}
+          #   org.opencontainers.image.revision=${{ env.tag }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/${{ github.repository }}/harbor-${{ matrix.component }}-base:${{ env.tag }}
+          tags: minregi.k3.acornsoft.io/test/${{ github.repository }}/harbor-${{ matrix.component }}-base:${{ env.tag }}
 
   docker-image:
     needs:
