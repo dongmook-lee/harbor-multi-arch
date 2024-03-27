@@ -144,11 +144,11 @@ jobs:
       - id: prepare
         run: echo "tag=$(cat ./version)" >> $GITHUB_ENV
 
-      - name: Check if component is db
-        if: ${{ (matrix.component == 'db') }}
-        run: |
-          bash ./scripts/convert.sh ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
-          cat ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
+      # - name: Check if component is db
+      #   if: ${{ (matrix.component == 'db') }}
+      #   run: |
+      #     bash ./scripts/convert.sh ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
+      #     cat ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
 
       - name: Build & Publish images
         env:
