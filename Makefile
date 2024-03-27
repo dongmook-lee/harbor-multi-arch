@@ -15,4 +15,4 @@ patch:
 	echo "V1 = $(V1)"
 	echo "CHK_VERSION = $(CHK_VERSION)"
 	bash -c "git clone --branch $(VERSION) https://github.com/goharbor/harbor.git"
-	cd harbor && sh -c "curl https://github.com/goharbor/harbor/compare/$(CHK_VERSION)...morlay:patch-$(CHK_VERSION).patch | git apply -v"
+	cd harbor && sh -c "curl https://github.com/goharbor/harbor/compare/$(VERSION)...morlay:patch-$(CHK_VERSION).patch | git apply -v"
