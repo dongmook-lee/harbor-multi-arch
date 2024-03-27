@@ -49,6 +49,9 @@ jobs:
           driver-opts: network=host
       - uses: docker/login-action@v2
         with:
+          # registry: ghcr.io
+          # username: ${{ github.actor }}
+          # password: ${{ secrets.GITHUB_TOKEN }}
           registry: minregi.k3.acornsoft.io
           username: admin
           password: Pass0000@
@@ -65,11 +68,11 @@ jobs:
       #     a: ${{ env.tag }}
       #     b: v2.9.0
 
-      - name: Check if component is db
-        if: ${{ (matrix.component == 'db') }}
-        run: |
-          bash ./scripts/convert.sh ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
-          cat ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
+      # - name: Check if component is db
+      #   if: ${{ (matrix.component == 'db') }}
+      #   run: |
+      #     bash ./scripts/convert.sh ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
+      #     cat ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
 
       - name: Build base image
         uses: docker/build-push-action@v4
@@ -131,6 +134,9 @@ jobs:
 
       - uses: docker/login-action@v2
         with:
+          # registry: ghcr.io
+          # username: ${{ github.actor }}
+          # password: ${{ secrets.GITHUB_TOKEN }}
           registry: minregi.k3.acornsoft.io
           username: admin
           password: Pass0000@
@@ -146,6 +152,9 @@ jobs:
 
       - name: Build & Publish images
         env:
+          # IMAGENAMESPACE: ghcr.io/${{ github.repository }}
+          # BASEIMAGENAMESPACE: ghcr.io/${{ github.repository }}
+          # IMAGELABELS: org.opencontainers.image.source=https://github.com/${{ github.repository }}
           IMAGENAMESPACE: minregi.k3.acornsoft.io/test
           BASEIMAGENAMESPACE: minregi.k3.acornsoft.io/test
           IMAGELABELS: org.opencontainers.image.source=https://minregi.k3.acornsoft.io/test
@@ -153,12 +162,13 @@ jobs:
           TRIVYFLAG: true
           CHARTFLAG: true
           NOTARYFLAG: true
-          PUSHBASEIMAGE: true
         run: |
           cd ./harbor;
           set -eux;
 
-          CTX="BUILDBIN=true VERSIONTAG=${{ env.tag }} BASEIMAGETAG=${{ env.tag }} MULTIARCH=${MULTIARCH} IMAGENAMESPACE=${IMAGENAMESPACE} BASEIMAGENAMESPACE=${BASEIMAGENAMESPACE} TRIVYFLAG=${TRIVYFLAG} CHARTFLAG=${CHARTFLAG} NOTARYFLAG=${CHARTFLAG} IMAGELABELS=${IMAGELABELS} PUSHBASEIMAGE=${PUSHBASEIMAGE}"
+          CTX="BUILDBIN=true VERSIONTAG=${{ env.tag }} BASEIMAGETAG=${{ env.tag }} MULTIARCH=${MULTIARCH} "
+          CTX+="IMAGENAMESPACE=${IMAGENAMESPACE} BASEIMAGENAMESPACE=${BASEIMAGENAMESPACE} TRIVYFLAG=${TRIVYFLAG} "
+          CTX+="CHARTFLAG=${CHARTFLAG} NOTARYFLAG=${CHARTFLAG} IMAGELABELS=${IMAGELABELS}"
 
           make versions_prepare ${CTX};
 
