@@ -73,7 +73,7 @@ jobs:
             awk -v n1="$num_1" -v n2="$last_version" 'BEGIN { if (n1 < n2) print "ver_check=true"; else print "ver_check=false" }'
           }
 
-          ompareVersions "$version1" "$version2" >> $GITHUB_ENV
+          compareVersions "$version1" "$version2" >> $GITHUB_ENV
 
       - name: Check if component is db
         if: ${{ (matrix.component == 'db') && (env.ver_check == 'true') }}
