@@ -11,7 +11,7 @@ function convert() {
   result+="RUN tdnf install -y shadow >> /dev/null \\"$'\n'
   result+="  && groupadd -r postgres --gid=999 \\"$'\n'
   result+="  && useradd -m -r -g postgres --uid=999 postgres"$'\n\n'
-  result+="$(sed -e "s/shadow //g" -e '/groupadd/d' -e '/useradd/d' -e 's/share\/postgresql\.conf\.sample/share\/postgresql\/postgresql\.conf\.sample/g'  <<< "${temp_2}")"
+  result+="$(sed -e "s/shadow //g" -e '/groupadd/d' -e '/useradd/d' -e '/ln -s/d' -e 's/share\/postgresql\.conf\.sample/share\/postgresql\/postgresql\.conf\.sample/g'  <<< "${temp_2}")"
 
 
 
