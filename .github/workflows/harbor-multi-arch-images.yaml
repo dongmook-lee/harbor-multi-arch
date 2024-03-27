@@ -70,7 +70,7 @@ jobs:
           compareVersions() {
             local v1="$(awk '{ gsub(/^v/, ""); print }' <<< "$1")"
             local v2="$(awk '{ gsub(/^v/, ""); print }' <<< "$2")"
-            awk -v n1="$num_1" -v n2="$last_version" 'BEGIN { if (n1 < n2) print "ver_check=true"; else print "ver_check=false" }'
+            awk -v n1="$v1" -v n2="$v2" 'BEGIN { if (n1 < n2) print "ver_check=true"; else print "ver_check=false" }'
           }
 
           echo $(compareVersions "$version1" "$version2") >> $GITHUB_ENV
