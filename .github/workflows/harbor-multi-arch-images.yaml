@@ -60,19 +60,26 @@ jobs:
 
       - id: prepare
         run: echo "tag=$(cat ./version)"  >> $GITHUB_ENV
-      
-      # - name: Compare versions
-      #   uses: EndBug/semver-action@v1
-      #   id: compare
-      #   with:
-      #     a: ${{ env.tag }}
-      #     b: v2.9.0
 
-      # - name: Check if component is db
-      #   if: ${{ (matrix.component == 'db') }}
-      #   run: |
-      #     bash ./scripts/convert.sh ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
-      #     cat ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
+      - name: Compare Versions
+        id: compare
+        run: |
+          version1="${{ env.tag }}"
+          version2="v2.9.0"
+
+          compareVersions() {
+            local v1="$(awk '{ gsub(/^v/, ""); print }' <<< "$1")"
+            local v2="$(awk '{ gsub(/^v/, ""); print }' <<< "$2")"
+            awk -v n1="$num_1" -v n2="$last_version" 'BEGIN { if (n1 < n2) print "ver_check=true"; else print "ver_check=false" }'
+          }
+
+          ompareVersions "$version1" "$version2" >> $GITHUB_ENV
+
+      - name: Check if component is db
+        if: ${{ (matrix.component == 'db') && (env.ver_check == 'true') }}
+        run: |
+          bash ./scripts/convert.sh ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
+          cat ./harbor/make/photon/${{ matrix.component }}/Dockerfile.base
 
       - name: Build base image
         uses: docker/build-push-action@v4
