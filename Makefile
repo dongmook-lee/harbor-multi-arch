@@ -14,7 +14,4 @@ dep:
 patch:
 	bash -c "git clone --branch $(VERSION) https://github.com/goharbor/harbor.git"
 	bash -c "cp -r template/harbor/$(VERSION)/make/photon/* harbor/make/photon/"
-	bash -c "cat template/harbor/$(VERSION)/make/photon/chartserver/Dockerfile"
-	bash -c "cat harbor/make/photon/chartserver/Dockerfile"
-	asdfasdf
 # cd harbor && sh -c "curl https://github.com/goharbor/harbor/compare/$(VERSION)...morlay:patch-$(CHK_VERSION).patch | git apply -v"
