@@ -29,13 +29,13 @@ docker build --build-arg TARGETARCHS="${TARGETARCHS}" --build-arg NOTARY_VERSION
 echo 'copy the binary files to local...'
 ID=$(docker create notary-binary)
 
-for targetarch in ${TARGETARCHS}; do
-  docker cp $ID:/go/bin/notary-server-linux-${targetarch} binary/notary-server-linux-${targetarch}
-  docker cp $ID:/go/bin/notary-signer-linux-${targetarch} binary/notary-signer-linux-${targetarch}
-  docker cp $ID:/go/bin/migrate-linux-${targetarch} binary/migrate-linux-${targetarch}
-done
 echo "`ls -al ./`"
 echo "==========="
+for targetarch in ${TARGETARCHS}; do
+  docker cp $ID:/go/bin/notary-server-linux-${targetarch} ./binary/notary-server-linux-${targetarch}
+  docker cp $ID:/go/bin/notary-signer-linux-${targetarch} ./binary/notary-signer-linux-${targetarch}
+  docker cp $ID:/go/bin/migrate-linux-${targetarch} ./binary/migrate-linux-${targetarch}
+done
 echo "`ls -al ./binary`"
 
 docker cp $ID:/migrations binary/migrations
