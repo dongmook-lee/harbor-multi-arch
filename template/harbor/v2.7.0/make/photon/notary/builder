@@ -34,13 +34,12 @@ for targetarch in ${TARGETARCHS}; do
   docker cp $ID:/go/bin/notary-signer-linux-${targetarch} binary/notary-signer-linux-${targetarch}
   docker cp $ID:/go/bin/migrate-linux-${targetarch} binary/migrate-linux-${targetarch}
 done
+echo "`ls -al ./`"
+echo "==========="
+echo "`ls -al ./binary`"
 
 docker cp $ID:/migrations binary/migrations
 sed -i 's/waiting for $DB_URL/waiting for database/g' binary/migrations/migrate.sh;
 
 docker rm -f $ID
 docker rmi -f notary-binary
-
-echo "`ls -al ./`"
-echo "==========="
-echo "`ls -al ./binary`"
