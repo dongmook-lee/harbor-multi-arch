@@ -17,8 +17,9 @@ sudo rm -rf binary/notary-* || true;
 sudo rm -rf binary/migrate-linux-* || true;
 sudo rm -rf binary/migrations || true;
 
+echo "dirname == `dirname $0`"
 cd `dirname $0`
-echo `pwd`
+echo "path == `pwd`"
 NOTARY_VERSION=$1
 MIGRATE_VERSION=$2
 
@@ -33,8 +34,10 @@ for targetarch in ${TARGETARCHS}; do
   sudo docker cp $ID:/go/bin/notary-server-linux-${targetarch} binary/notary-server-linux-${targetarch}
   sudo docker cp $ID:/go/bin/notary-signer-linux-${targetarch} binary/notary-signer-linux-${targetarch}
   sudo docker cp $ID:/go/bin/migrate-linux-${targetarch} binary/migrate-linux-${targetarch}
-  echo `ls -al binary`
 done
+echo "`ls -al ./`"
+echo "==========="
+echo "ls -al ./notary"
 
 sudo docker cp $ID:/migrations binary/migrations
 sudo sed -i 's/waiting for $DB_URL/waiting for database/g' binary/migrations/migrate.sh;
