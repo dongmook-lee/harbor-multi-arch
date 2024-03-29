@@ -20,21 +20,21 @@ jobs:
       fail-fast: false
       matrix:
         component:
-          - chartserver
-          - trivy-adapter
-          - core
-          - db
-          - exporter
-          - jobservice
-          - log
-          - nginx
+          # - chartserver
+          # - trivy-adapter
+          # - core
+          # - db
+          # - exporter
+          # - jobservice
+          # - log
+          # - nginx
           - notary-server
           - notary-signer
-          - portal
-          - prepare
-          - redis
-          - registry
-          - registryctl
+          # - portal
+          # - prepare
+          # - redis
+          # - registry
+          # - registryctl
 
     defaults:
       run:
@@ -109,20 +109,20 @@ jobs:
       fail-fast: false
       matrix:
         component:
-          - prepare
-          - db
-          - portal
-          - core
-          - jobservice
-          - log
-          - nginx
-          - registryctl
+          # - prepare
+          # - db
+          # - portal
+          # - core
+          # - jobservice
+          # - log
+          # - nginx
+          # - registryctl
           - notary
-          - trivy_adapter
-          - redis
-          - chart_server
-          - standalone_db_migrator
-          - exporter
+          # - trivy_adapter
+          # - redis
+          # - chart_server
+          # - standalone_db_migrator
+          # - exporter
 
     defaults:
       run:
@@ -143,7 +143,7 @@ jobs:
           driver: docker-container
           driver-opts: network=host
 
-      - run: sudo make patch
+      - run: make patch
 
       - uses: docker/login-action@v2
         with:
