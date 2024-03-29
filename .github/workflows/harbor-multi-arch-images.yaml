@@ -204,6 +204,7 @@ jobs:
             core)                   make compile_core ${CTX} ;;
             jobservice)             make compile_jobservice ${CTX};;
             registryctl)            make compile_registryctl ${CTX};;
+            notary*)                sudo make compile_notary_migrate_patch ${CTX} ;;
             standalone_db_migrator) make compile_standalone_db_migrator ${CTX} ;;
           esac;
 
